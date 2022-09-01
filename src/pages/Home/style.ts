@@ -26,6 +26,16 @@ export const Container = styled.div`
         }
         .column-todo { 
             background-color: #C9AF97;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            .addTodo {
+                /* position: absolute;
+                top: 1rem;
+                left: 60%; */
+                width: 130px;
+                height: 30px;
+            }
         }
         .column-ongoing { 
             background-color: #FFE799;

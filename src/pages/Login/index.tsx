@@ -6,8 +6,9 @@ interface IUser {
     name: any,
     password: string
 }
-type TPassword = React.ChangeEvent<HTMLInputElement>
-const defaultUser : IUser = {
+type TInputChange = React.ChangeEvent<HTMLInputElement>
+type TKeydown = React.KeyboardEvent<HTMLInputElement>
+const defaultUser: IUser = {
     name: 'yumao',
     password: '123'
 }
@@ -25,11 +26,11 @@ export default function Index() {
         password: ''
     })
     const navigate = useNavigate()
-    const changeName = (e: TPassword) => {
+    const changeName = (e: TInputChange) => {
         let value = e.target.value
         setUser({ ...user, name: value })
     }
-    const changePassword = (e: TPassword) => {
+    const changePassword = (e: TInputChange) => {
         let value = e.target.value
         setUser({ ...user, password: value })
     }
@@ -41,12 +42,16 @@ export default function Index() {
             localStorage.setItem('user', JSON.stringify(user))
             navigate('/')
         }
-
+    }
+    const keydownLogin = (e: TKeydown) => {
+        if (e.key === 'Enter') {
+            login()
+        }
     }
     return (
         <>
-            <input type="text" value={user.name} onChange={changeName} />账号
-            <input type="password" value={user.password} onChange={changePassword} />密码
+            账号：<input type="text" value={user.name} onChange={changeName} />
+            密码：<input type="password" value={user.password} onChange={changePassword} onKeyDown={keydownLogin} />
             <hr />
             <button onClick={login}>登录</button>
         </>
